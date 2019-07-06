@@ -1,5 +1,15 @@
 <RCC>
     <qresource prefix="/">
         <file>image/First.jpg</file>
+        <file>image/head.jpg</file>
+        <file>image/head.png</file>
+        <file>image/date.jpg</file>
+        <file>image/left.jpg</file>
+        <file>image/right.jpg</file>
+        <file>image/bt.jpg</file>
+        <file>image/btin.jpg</file>
+        <file>image/h.png</file>
+        <file>image/btbt.png</file>
+        <file>image/in.jpg</file>
     </qresource>
 </RCC>
