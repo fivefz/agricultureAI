@@ -1,8 +1,11 @@
 package com.sun.analyticplatform.model.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
-
+@Entity
+@Table(name = "notify")
 public class Notify {
     private static final long serialVersionUID = 5L;
     @Id
@@ -11,10 +14,12 @@ public class Notify {
     private int id;
     @ManyToOne
     private User source;
-    @ManyToOne
-    private User destination;
     @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @OrderColumn
     private Date date = new Date();
+    @Column(nullable = false)
+    private String title;
     @Column
     private String content;
 }

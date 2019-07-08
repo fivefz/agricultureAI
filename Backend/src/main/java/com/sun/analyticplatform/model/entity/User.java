@@ -8,6 +8,14 @@ import java.io.Serializable;
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
+
+    enum Role{
+        expert,
+        farmer,
+        officer,
+        admin;
+    }
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,6 +31,8 @@ public class User implements Serializable {
     private String province;
     @Column(nullable = false)
     private String city;
+    @Column(nullable = false)
+    private Role role = Role.farmer;
 
     public User(){
         
