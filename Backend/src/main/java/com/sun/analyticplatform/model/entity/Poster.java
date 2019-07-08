@@ -1,5 +1,7 @@
 package com.sun.analyticplatform.model.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -14,9 +16,12 @@ public class Poster {
     @ManyToOne
     private User user;
     @Column(nullable = false)
-    private Date date;
-    @Column
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date date = new Date();
+    @Column(nullable = false)
     private String title;
-    @Column
+    @Column(nullable = false)
     private String content;
+    @Column
+    private int replynum = 0;
 }
