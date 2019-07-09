@@ -16,7 +16,7 @@ public class AvatarController {
 
     @GetMapping("/avatar/downloadAvatar")
     @ResponseBody
-    public void downloadAvatar(@RequestParam("id") String id, HttpServletResponse response) {
+    public String downloadAvatar(@RequestParam("id") String id, HttpServletResponse response) {
         String avatarURL = avatarDir+id+".jpg";
         File avatar = new File(avatarURL);
         if (avatar.exists()) {
@@ -49,21 +49,22 @@ public class AvatarController {
                         e.printStackTrace();
                     }
                 }
+                return "download success";
             }
         }
-        else System.out.println("file isn't exist");
+        else return "file isn't exist";
     }
 
     @PostMapping(value = "/avatar/uploadAvatar")
     @ResponseBody
-    public String upload(@RequestParam("file") MultipartFile file) {
+    public String upload(@RequestParam("file") MultipartFile file,
+                         @RequestParam("id") String id) {
         if (file.isEmpty()) {
             return "上传失败，请选择文件";
         }
 
-        String fileName = file.getOriginalFilename();
         String filePath = avatarDir;
-        File dest = new File(filePath + fileName);
+        File dest = new File(filePath + id+".jpg");
         try {
             file.transferTo(dest);
             return "上传成功";
