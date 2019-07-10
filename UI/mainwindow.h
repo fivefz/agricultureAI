@@ -41,6 +41,8 @@ private slots:
 
     void paintEvent(QPaintEvent *e);
 
+    void on_forget_clicked();
+
 private:
     Ui::MainWindow *ui;
 

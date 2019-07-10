@@ -21,9 +21,9 @@ void check::on_submit_clicked()
 {
     if(ui->in->text()==this->code)
     {
-        ok *o=new ok();
-        o->exec();
-        emit sendData("1");
+        ok o("验证成功！");
+        o.exec();
+        emit sendData("alter");
         this->close();
     }
     else
