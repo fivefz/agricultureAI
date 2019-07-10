@@ -20,14 +20,10 @@ public class PersonalInfo {
         return user;
     }
 
-    @PostMapping("/editpersonalInfo{id}")
+    @PostMapping("/editpersonalInfo")
     @ResponseBody
-    public void EditPersonalInfo(@RequestParam(required = true) String name,
-                                    @RequestParam(required = true) String password,
-                                    @RequestParam(required = true) String email,
-                                    @RequestParam(required = true) String province,
-                                    @RequestParam(required = true) String city){
-        userRepository.save(new User(name,password,email,province,city));
+    public void EditPersonalInfo(@RequestBody User user){
+        //emial name password phone
     }
 
 

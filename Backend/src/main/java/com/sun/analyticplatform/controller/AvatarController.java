@@ -13,10 +13,11 @@ import java.io.*;
 public class AvatarController {
     //头像上传位置
     private String avatarDir = "H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\avatar\\";
+//重写 没有返回默认 有返回对应头像
 
-    @GetMapping("/avatar/downloadAvatar")
+    @GetMapping("/avatar/downloadAvatar/{id}")
     @ResponseBody
-    public String downloadAvatar(@RequestParam("id") String id, HttpServletResponse response) {
+    public String downloadAvatar(@PathVariable("id") String id, HttpServletResponse response) {
         String avatarURL = avatarDir+id+".jpg";
         File avatar = new File(avatarURL);
         if (avatar.exists()) {
@@ -59,18 +60,14 @@ public class AvatarController {
     @ResponseBody
     public String upload(@RequestParam("file") MultipartFile file,
                          @RequestParam("id") String id) {
-        if (file.isEmpty()) {
-            return "上传失败，请选择文件";
-        }
-
         String filePath = avatarDir;
         File dest = new File(filePath + id+".jpg");
         try {
             file.transferTo(dest);
-            return "上传成功";
+            return "1";
         } catch (IOException e) {
         }
-        return "上传失败！";
+        return "0";
     }
 
 

@@ -27,13 +27,12 @@ public class User implements Serializable {
     private String password;
     @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false, unique = true,length = 11)
+    private String phone;
     @Column(nullable = false)
     private String province;
     @Column(nullable = false)
     private String city;
-
-
-
     @Column(nullable = false)
     private Role role = Role.farmer;
 
@@ -41,21 +40,24 @@ public class User implements Serializable {
     public User(){
 
     }
-    public User(String userName, String password, String email, String province, String city, Role role) {
+
+    public User(String userName, String password, String email, String phone, String province, String city) {
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.phone = phone;
+        this.province = province;
+        this.city = city;
+    }
+
+    public User(String userName, String password, String email, String phone, String province, String city, Role role) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
         this.province = province;
         this.city = city;
         this.role = role;
-    }
-
-    public User(String userName, String password, String email, String province, String city) {
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-        this.province = province;
-        this.city = city;
     }
 
     @Override

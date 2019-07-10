@@ -1,12 +1,11 @@
 package com.sun.analyticplatform.model.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
-@Table(name = "message")
-public class Message {
+@Table(name = "consult")
+public class Consult {
     private static final long serialVersionUID = 4L;
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,6 +22,18 @@ public class Message {
     private String content;
     @Column
     private boolean readed = false;
+
+    public Consult(){
+
+    }
+
+    public Consult(User from, User to, Date date, String content, boolean readed) {
+        this.from = from;
+        this.to = to;
+        this.date = date;
+        this.content = content;
+        this.readed = readed;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -78,7 +89,7 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
+        return "Consult{" +
                 "id=" + id +
                 ", from=" + from +
                 ", to=" + to +
