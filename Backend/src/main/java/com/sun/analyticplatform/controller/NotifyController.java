@@ -4,6 +4,7 @@ import com.sun.analyticplatform.model.DAO.NotifyRepository;
 import com.sun.analyticplatform.model.entity.Notify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,8 +20,8 @@ public class NotifyController {
         return notifyRepository.findAll();
     }
 
-//    @GetMapping("/notify/{id}")
-//    public String getNotifyByID(){
-//
-//    }
+    @GetMapping("/notify/{id}")
+    public Notify getNotifyByID(@PathVariable int id){
+        return notifyRepository.findById(id);
+    }
 }

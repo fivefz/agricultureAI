@@ -14,7 +14,7 @@ public class PersonalInfo {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/personalInfo{id}")
+    @GetMapping("/personalInfo/{id}")
     public User GetPersonalInfo(@PathVariable(value = "id")Integer id){
         User user = userRepository.findById(id);
         return user;
@@ -24,6 +24,12 @@ public class PersonalInfo {
     @ResponseBody
     public void EditPersonalInfo(@RequestBody User user){
         //emial name password phone
+        User updater = userRepository.findById(user.getId());
+        updater.setUserName(user.getUserName());
+        updater.setEmail(user.getEmail());
+        updater.setPassword(user.getPassword());
+        updater.setPhone(user.getPhone());
+        userRepository.save(updater);
     }
 
 

@@ -19,7 +19,9 @@ public class Consult {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date = new Date();
     @Column
-    private String content;
+    private String question;
+    @Column
+    private String reply;
     @Column
     private boolean readed = false;
 
@@ -27,11 +29,12 @@ public class Consult {
 
     }
 
-    public Consult(User from, User to, Date date, String content, boolean readed) {
+    public Consult(User from, User to, Date date, String question, String reply, boolean readed) {
         this.from = from;
         this.to = to;
         this.date = date;
-        this.content = content;
+        this.question = question;
+        this.reply = reply;
         this.readed = readed;
     }
 
@@ -71,12 +74,20 @@ public class Consult {
         this.date = date;
     }
 
-    public String getContent() {
-        return content;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
     }
 
     public boolean isReaded() {
@@ -94,7 +105,8 @@ public class Consult {
                 ", from=" + from +
                 ", to=" + to +
                 ", date=" + date +
-                ", content='" + content + '\'' +
+                ", question='" + question + '\'' +
+                ", reply='" + reply + '\'' +
                 ", readed=" + readed +
                 '}';
     }

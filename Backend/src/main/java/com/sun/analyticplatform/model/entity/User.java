@@ -18,8 +18,16 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(unique = true, nullable = false, length = 6)
+    @TableGenerator(
+            name = "AppSeqStore",
+            table = "APP_SEQ_STORE",
+            pkColumnName = "APP_SEQ_NAME",
+            pkColumnValue = "LISTENER_PK",
+            valueColumnName = "APP_SEQ_VALUE",
+            initialValue = 10000,
+            allocationSize = 1 )
+    @GeneratedValue( strategy = GenerationType.TABLE, generator = "AppSeqStore" )
     private int id;
     @Column(unique = true, nullable = false)
     private String userName;
@@ -107,6 +115,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getProvince() {
