@@ -23,13 +23,14 @@ public class CodeController {
         Random random = new Random();
         String code =  String.valueOf(random.nextInt(900000)+9999);
 
-        if (String.valueOf(user.getId()).isEmpty()){
+        if (String.valueOf(user.getId()).isEmpty()){//注册
             mailService.sendSimpleMail(user.getEmail(),"Auth Code",code);
         }
-        else if (user.getEmail().isEmpty()){
+        else if (user.getEmail().isEmpty()){//修改个人资料
             User receiver = userRepository.findById(user.getId());
             mailService.sendSimpleMail(receiver.getEmail(),"Auth Code",code);
-        }else{
+        }else{//忘记密码
+            if(!userRepository.existsUserById(user.getId())) return "-1";
             mailService.sendSimpleMail(user.getEmail(),"Auth Code",code);
         }
         return code;

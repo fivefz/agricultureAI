@@ -32,6 +32,14 @@ public class PersonalInfo {
         userRepository.save(updater);
     }
 
+    @PostMapping("/updatepassword")
+    public String updatePassword(@RequestBody User user){
+        User updater = userRepository.findById(user.getId());
+        updater.setPassword(user.getPassword());
+        userRepository.save(updater);
+        return "1";
+    }
+
 
 
 

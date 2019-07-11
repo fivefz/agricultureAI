@@ -11,12 +11,13 @@ import java.io.*;
 @RestController
 @RequestMapping("/file")
 public class FileController {
-    @GetMapping("/{id}")
-    public String fileDownload(@PathVariable int id, HttpServletRequest request, HttpServletResponse response){
-        String fileName = id+".jpg";// 文件名
+    @GetMapping("/{name}")
+    public String fileDownload(@PathVariable String name, HttpServletRequest request, HttpServletResponse response){
+        String fileName = name;// 文件名
+        System.out.println("name:"+name);
         if (fileName != null) {
             //设置文件路径
-            File file = new File("H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\files"+fileName);
+            File file = new File("H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\files\\"+fileName);
             if (file.exists()) {
                 response.setContentType("application/force-download");// 设置强制下载不打开
                 response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);// 设置文件名
@@ -53,13 +54,14 @@ public class FileController {
                 }
             }
         }
-        return "下载失败";
+        return "文件不存在";
     }
 
 
 
     @PostMapping("/upload")
-    public String fileUpload(@RequestParam("file") MultipartFile file){
+    public String fileUpload(@RequestParam("file") MultipartFile file,
+                             @RequestParam("id") int id){
         try {
             if (file.isEmpty()) {
                 return "文件为空";
@@ -69,7 +71,7 @@ public class FileController {
             // 获取文件的后缀名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             // 设置文件存储路径
-            String filePath = "H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\files";
+            String filePath = "H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\files"+"\\"+id;
             String path = filePath + fileName;
             File dest = new File(path);
             // 检测是否存在目录
