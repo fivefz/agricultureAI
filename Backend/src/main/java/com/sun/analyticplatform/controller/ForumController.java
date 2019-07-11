@@ -37,6 +37,10 @@ public class ForumController {
     @PostMapping("/addreply")
     public String addReply(@RequestBody Reply reply){
         replyRepository.save(reply);
+        Poster poster = posterRepository.findById(reply.getPoster().getId());
+        int replynum = poster.getReplynum();
+        poster.setReplynum(replynum+1);
+        posterRepository.save(poster);
         return  "1";
     }
 

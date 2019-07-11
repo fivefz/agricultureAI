@@ -23,6 +23,10 @@ public class Notify {
     @Column
     private String content;
 
+    public Notify(){
+
+    }
+
     public Notify(User publisher, Date publishDate, String title, String content) {
         this.publisher = publisher;
         this.publishDate = publishDate;

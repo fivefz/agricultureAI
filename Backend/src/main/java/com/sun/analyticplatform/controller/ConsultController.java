@@ -42,18 +42,19 @@ public class ConsultController {
         return "1";
     }
 
-    @GetMapping("/getallfromme")
-    public List<Consult> getAllFromMe(@RequestParam int id){
+    @GetMapping("/getallfromme/{id}")
+    public List<Consult> getAllFromMe(@PathVariable int id){
         return consultRepository.findAllByFromId(id);
     }
 
-    @GetMapping("/getalltome")
-    public List<Consult> getAllToMe(@RequestParam int id){
+    @GetMapping("/getalltome/{id}")
+    public List<Consult> getAllToMe(@PathVariable int id){
         return consultRepository.findAllByToId(id);
     }
 
-    @GetMapping("/getInfo")
-    public Consult getInfo(@RequestBody Consult consult){
-        return consultRepository.findById(consult.getId());
+    @GetMapping("/getInfo/{id}")
+    public Consult getInfo(@PathVariable int consult_id){
+
+        return consultRepository.findById(consult_id);
     }
 }
