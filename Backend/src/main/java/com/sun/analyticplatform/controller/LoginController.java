@@ -16,7 +16,7 @@ public class LoginController {
     public String login(@RequestBody User user){
         System.out.println(user.toString());
         if(userRepository.findUserByIdAndPassword(user.getId(),user.getPassword()) != null){
-            return "1";
+            return userRepository.findUserByIdAndPassword(user.getId(),user.getPassword()).getRole().toString();
         }else{
             return "0";
         }

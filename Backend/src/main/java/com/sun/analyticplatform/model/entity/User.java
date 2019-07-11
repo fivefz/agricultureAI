@@ -18,8 +18,16 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(unique = true, nullable = false, length = 6)
+    @TableGenerator(
+            name = "AppSeqStore",
+            table = "APP_SEQ_STORE",
+            pkColumnName = "APP_SEQ_NAME",
+            pkColumnValue = "LISTENER_PK",
+            valueColumnName = "APP_SEQ_VALUE",
+            initialValue = 10000,
+            allocationSize = 1 )
+    @GeneratedValue( strategy = GenerationType.TABLE, generator = "AppSeqStore" )
     private int id;
     @Column(unique = true, nullable = false)
     private String userName;
@@ -27,13 +35,12 @@ public class User implements Serializable {
     private String password;
     @Column(nullable = false, unique = true)
     private String email;
+    @Column(nullable = false, unique = true,length = 11)
+    private String phone;
     @Column(nullable = false)
     private String province;
     @Column(nullable = false)
     private String city;
-
-
-
     @Column(nullable = false)
     private Role role = Role.farmer;
 
@@ -41,21 +48,24 @@ public class User implements Serializable {
     public User(){
 
     }
-    public User(String userName, String password, String email, String province, String city, Role role) {
+
+    public User(String userName, String password, String email, String phone, String province, String city) {
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.phone = phone;
+        this.province = province;
+        this.city = city;
+    }
+
+    public User(String userName, String password, String email, String phone, String province, String city, Role role) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
         this.province = province;
         this.city = city;
         this.role = role;
-    }
-
-    public User(String userName, String password, String email, String province, String city) {
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-        this.province = province;
-        this.city = city;
     }
 
     @Override
@@ -105,6 +115,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getProvince() {

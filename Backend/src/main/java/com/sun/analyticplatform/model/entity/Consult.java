@@ -1,12 +1,11 @@
 package com.sun.analyticplatform.model.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
-@Table(name = "message")
-public class Message {
+@Table(name = "consult")
+public class Consult {
     private static final long serialVersionUID = 4L;
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -20,9 +19,24 @@ public class Message {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date = new Date();
     @Column
-    private String content;
+    private String question;
+    @Column
+    private String reply;
     @Column
     private boolean readed = false;
+
+    public Consult(){
+
+    }
+
+    public Consult(User from, User to, Date date, String question, String reply, boolean readed) {
+        this.from = from;
+        this.to = to;
+        this.date = date;
+        this.question = question;
+        this.reply = reply;
+        this.readed = readed;
+    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -60,12 +74,20 @@ public class Message {
         this.date = date;
     }
 
-    public String getContent() {
-        return content;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
     }
 
     public boolean isReaded() {
@@ -78,12 +100,13 @@ public class Message {
 
     @Override
     public String toString() {
-        return "Message{" +
+        return "Consult{" +
                 "id=" + id +
                 ", from=" + from +
                 ", to=" + to +
                 ", date=" + date +
-                ", content='" + content + '\'' +
+                ", question='" + question + '\'' +
+                ", reply='" + reply + '\'' +
                 ", readed=" + readed +
                 '}';
     }

@@ -14,20 +14,22 @@ public class PersonalInfo {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/personalInfo{id}")
+    @GetMapping("/personalInfo/{id}")
     public User GetPersonalInfo(@PathVariable(value = "id")Integer id){
         User user = userRepository.findById(id);
         return user;
     }
 
-    @PostMapping("/editpersonalInfo{id}")
+    @PostMapping("/editpersonalInfo")
     @ResponseBody
-    public void EditPersonalInfo(@RequestParam(required = true) String name,
-                                    @RequestParam(required = true) String password,
-                                    @RequestParam(required = true) String email,
-                                    @RequestParam(required = true) String province,
-                                    @RequestParam(required = true) String city){
-        userRepository.save(new User(name,password,email,province,city));
+    public void EditPersonalInfo(@RequestBody User user){
+        //emial name password phone
+        User updater = userRepository.findById(user.getId());
+        updater.setUserName(user.getUserName());
+        updater.setEmail(user.getEmail());
+        updater.setPassword(user.getPassword());
+        updater.setPhone(user.getPhone());
+        userRepository.save(updater);
     }
 
 

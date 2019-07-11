@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface NotifyRepository extends JpaRepository<Notify,Long> {
     List<Notify> findAll();
+    Notify findById(int id);
 }
