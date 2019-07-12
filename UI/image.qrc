@@ -11,5 +11,7 @@
         <file>image/h.png</file>
         <file>image/btbt.png</file>
         <file>image/in.jpg</file>
+        <file>image/notice.jpg</file>
+        <file>image/nin.jpg</file>
     </qresource>
 </RCC>

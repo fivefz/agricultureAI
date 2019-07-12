@@ -3,9 +3,9 @@
 #include <QDebug>
 #include <QString>
 #include "res.h"
-#include "socket.h"
 #include "first.h"
 #include <QPainter>
+#include "network.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -53,26 +53,29 @@ void MainWindow::on_ok_clicked()
 
     if(flag){
 
-        QString res=ui->numin->text()+ui->pasin->text();
+        //QString res=ui->numin->text()+ui->pasin->text();
 //        Socket s;
 //        s.startConnect();
 
-        this->setPow(ui->numin->text());
-        this->setID(ui->numin->text());
-        First *f=new First(this->getID(),this->getPow());
-        f->show();
-        this->close();
+        QStringList list;
+        list<<ui->numin->text()<<ui->pasin->text();
 
+        Network n;
+        QString res=QString(n.doPost(list));
 
-//        if(ui->pasin->text()!="123"){
-//            ui->err->setAlignment(Qt::AlignHCenter);
-//            ui->err->setText("账号或密码错误！");
-//            ui->err->setStyleSheet("color:rgb(255, 0, 0);font-size:20px;font-family:楷体;font: bold;");
-//        }
-//        else {
-//            ui->err->setText("");
-//            qDebug()<<res;
-//        }
+//        this->setPow(ui->numin->text());
+//        this->setID(ui->numin->text());
+
+        if(res!="1"){
+            ui->err->setAlignment(Qt::AlignHCenter);
+            ui->err->setText("账号或密码错误！");
+            ui->err->setStyleSheet("color:rgb(255, 0, 0);font-size:20px;font-family:楷体;font: bold;");
+        }
+        else {
+            First *f=new First(this->getID(),this->getPow());
+            f->show();
+            this->close();
+        }
 
 
     }
@@ -86,4 +89,9 @@ void MainWindow::paintEvent ( QPaintEvent *e )
     QPainter painter(this);
     painter.drawPixmap(rect(),QPixmap(":/image/First.jpg"),QRect());
     ui->in->move(this->width()*0.5-ui->in->width()*0.5,this->height()*0.4);
+}
+
+void MainWindow::on_forget_clicked()
+{
+
 }

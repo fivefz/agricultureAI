@@ -12,7 +12,7 @@ class ok : public QDialog
     Q_OBJECT
 
 public:
-    explicit ok(QWidget *parent = 0);
+    explicit ok(QString s,QWidget *parent = 0);
     ~ok();
 
 private slots:
@@ -20,6 +20,7 @@ private slots:
 
 private:
     Ui::ok *ui;
+    QString str;
 };
 
 #endif // OK_H
