@@ -15,12 +15,12 @@ from sklearn.model_selection import StratifiedKFold
 import pandas as pd
 import tqdm
 import cv2
-from torchsummary import summary
+#from torchsummary import summary
 from collections import OrderedDict
 from sklearn.metrics import confusion_matrix
 import sys
 sys.path.append('../config/')
-import config 
+#import config 
 
 
 # In[2]:
@@ -53,8 +53,8 @@ class RunningMean:
 '''
 def snapshot(savepathPre,savePath,state):    
     if not os.path.exists(savepathPre):
-        os.makedirs(filePath)
-    torch.save(state, savePath)
+        os.makedirs(savepathPre)#filePath xiao
+    torch.save(state, savepathPre+savePath)#savePath xiao
 
     
 '''
@@ -86,6 +86,43 @@ class Logger(object):
         # this handles the flush command by doing nothing.
         # you might want to specify some extra behavior here.
         pass    
+
+#def predictAll(model_name, model_class, weight_pth, image_size, normalize): #该函数要使用时复制到别的py
+#    print(f'[+] predict {model_name}')
+#    model = get_model(model_class)
+#    model.load_state_dict(torch.load(weight_pth)['state_dict'])
+#    model.eval()
+#    print('load state dict done')
+#
+#    tta_preprocess = [preprocess(normalize, image_size), preprocess_hflip(normalize, image_size)]
+#    tta_preprocess += make_transforms([transforms.Resize((image_size + 20, image_size + 20))],
+#                                      [transforms.ToTensor(), normalize],
+#                                      five_crops(image_size))
+#    tta_preprocess += make_transforms([transforms.Resize((image_size + 20, image_size + 20))],
+#                                      [HorizontalFlip(), transforms.ToTensor(), normalize],
+#                                      five_crops(image_size))
+#    print(f'[+] tta size: {len(tta_preprocess)}')
+#
+#
+#    data_loaders = []
+#    for transform in tta_preprocess:
+#
+#        test_dataset = MyDataSet(json_Description=ANNOTATION_VAL,transform=transform,path_pre=IMAGE_VAL_PRE)
+#        data_loader = DataLoader(dataset=test_dataset, num_workers=16,
+#                                 batch_size=BATCH_SIZE,
+#                                 shuffle=False)
+#        data_loaders.append(data_loader)
+#        print('add transforms')
+#
+#    lx, px = utils.predict_tta(model, data_loaders)
+#    data = {
+#        'lx': lx.cpu(),
+#        'px': px.cpu(),
+#    }
+#    if not os.path.exists('../feature/'+model_name):
+#        os.makedirs('../feature/'+model_name)
+#    torch.save(data, '../feature/'+model_name+'/val_all_prediction.pth')
+#    print('Done')
 
 
 '''

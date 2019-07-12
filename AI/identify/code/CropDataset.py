@@ -4,11 +4,12 @@
 # In[1]:
 
 
-from torch.utils.data import *
+from torch.utils.data import Dataset
 import json
 import torchvision.transforms as transforms
 from augmentation import HorizontalFlip
 from PIL import Image
+
 NB_CLASS=61
 
 def default_loader(path):
