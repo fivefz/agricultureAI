@@ -27,14 +27,10 @@ public class UserTest {
 //        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG);
 //        String formattedDate = dateFormat.format(date);
 
-        userRepository.save(new User("user1","pass","qq@126.com","12345678920", "ShaanXi","Xi'an"));
-        userRepository.save(new User("user2","pass","ww@126.com","12345678921","ShaanXi","Xi'an"));
-        userRepository.save(new User("user3","pass","ee@126.com","12345678922","ShaanXi","Xi'an"));
-        userRepository.save(new User("expert1","pass","33@126.com","6666655589","ShaanXi","Xi'an", User.Role.expert));
-        userRepository.save(new User("expert2","pass","22@126.com","6666655555","ShaanXi","Xi'an", User.Role.expert));
-        userRepository.save(new User("officer1","pass","rr@126.com","12345678913", "ShaanXi","Xi'an", User.Role.officer));
-        userRepository.save(new User("officer2","pass","tt@126.com","12345678914","ShaanXi","Xi'an", User.Role.officer));
-        userRepository.save(new User("admin","pass","cc@126.com","12345678915","ShaanXi","Xi'an", User.Role.admin));
+        //userRepository.save(new User("expert2","pass","22@126.com","6666655555","ShaanXi","Xi'an", User.Role.expert));
+//        userRepository.save(new User("officer1","pass","rr@126.com","12345678913", "ShaanXi","Xi'an", User.Role.officer));
+//        userRepository.save(new User("officer2","pass","tt@126.com","12345678914","ShaanXi","Xi'an", User.Role.officer));
+        userRepository.save(new User("admin","pass","oo@126.com","12345678915","ShaanXi","Xi'an", User.Role.admin));
 
 //        Assert.assertEquals("bb", userRepository.findByUserName("bb2").getPassword());
 //        userRepository.delete(userRepository.findByUserName("aa1"));
