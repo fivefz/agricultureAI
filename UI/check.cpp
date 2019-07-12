@@ -10,6 +10,8 @@ check::check(QString s,QString a,QWidget *parent) :
 {
     ui->setupUi(this);
     ui->title->setText("请填写您的邮箱"+a+"收到的验证码");
+    setWindowTitle("多人农业图像分析平台");
+    setWindowIcon(QIcon(QPixmap(":/image/First.jpg")));
 }
 
 check::~check()
@@ -23,7 +25,7 @@ void check::on_submit_clicked()
     {
         ok o("验证成功！");
         o.exec();
-        emit sendData("alter");
+        emit sendData("OK");
         this->close();
     }
     else

@@ -1552,6 +1552,8 @@ void First::paintEvent ( QPaintEvent *e )
 
     ui->label_5->setStyleSheet("color:rgb(0, 0, 0);font-size:"+QString::number(this->width()/30)+"px;background:transparent;font-weight:bold;border-image: url(:/image/h.png);");
     ui->label_5->resize(ui->in->width()*9/10,ui->in->height()/10);
+    ui->imshow->move(ui->in->width()/2-ui->imshow->width()/2,ui->in->height()/2-ui->imshow->height()/2);
+    
 }
 
 //重新绘制函数结束

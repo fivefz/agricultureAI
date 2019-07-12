@@ -2,6 +2,7 @@
 #define RES_H
 
 #include <QWidget>
+#include <QStringList>
 
 namespace Ui {
 class res;
@@ -21,8 +22,11 @@ private slots:
 
     void on_submit_clicked();
 
+    void receiveData(QString data);
+
 private:
     Ui::res *ui;
+    QStringList list;
 };
 
 #endif // RES_H

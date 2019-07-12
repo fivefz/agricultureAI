@@ -6,6 +6,7 @@
 #include "first.h"
 #include <QPainter>
 #include "network.h"
+#include "forget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -15,6 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QPalette pal(palette());
     pal.setBrush(QPalette::Background, QBrush(QPixmap(":/image/First.jpg")));
     setPalette(pal);
+    setWindowTitle("多人农业图像分析平台");
+    setWindowIcon(QIcon(QPixmap(":/image/First.jpg")));
     ui->num->setStyleSheet("color:rgb(255, 255, 255);font-size:20px;font-family:楷体;font: bold;");
     ui->pas->setStyleSheet("color:rgb(255, 255, 255);font-size:20px;font-family:楷体;font: bold;");
     ui->numin->setStyleSheet("color:rgb(255, 255, 255);font-size:17px;background:transparent;");
@@ -30,7 +33,11 @@ MainWindow::MainWindow(QWidget *parent) :
         r->show();
         r->setAttribute(Qt::WA_DeleteOnClose);
     });
-
+    connect(ui->forget,&QPushButton::clicked,[=](){
+        forget *f=new forget();
+        f->show();
+        f->setAttribute(Qt::WA_DeleteOnClose);
+    });
 
 }
 
@@ -61,27 +68,27 @@ void MainWindow::on_ok_clicked()
         list<<ui->numin->text()<<ui->pasin->text();
 
         Network n;
-        QString res=QString(n.doPost(list));
+        QString result=QString(n.doPost("login",list));
 
-//        this->setPow(ui->numin->text());
-//        this->setID(ui->numin->text());
-
-        if(res!="1"){
+        if(result=="0"){
             ui->err->setAlignment(Qt::AlignHCenter);
             ui->err->setText("账号或密码错误！");
             ui->err->setStyleSheet("color:rgb(255, 0, 0);font-size:20px;font-family:楷体;font: bold;");
         }
         else {
+            this->setPow(result);
+            this->setID(ui->numin->text());
             First *f=new First(this->getID(),this->getPow());
             f->show();
             this->close();
         }
 
 
-    }
 
 
 
+
+}
 }
 
 void MainWindow::paintEvent ( QPaintEvent *e )
@@ -89,9 +96,4 @@ void MainWindow::paintEvent ( QPaintEvent *e )
     QPainter painter(this);
     painter.drawPixmap(rect(),QPixmap(":/image/First.jpg"),QRect());
     ui->in->move(this->width()*0.5-ui->in->width()*0.5,this->height()*0.4);
-}
-
-void MainWindow::on_forget_clicked()
-{
-
 }

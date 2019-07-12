@@ -40,7 +40,7 @@ public:
 
     void change();
 
-    void getNotice();
+    void getNotice(int nno);
 
     QStringList getNoticeList();
 
@@ -48,10 +48,33 @@ public:
 
     void getLast();
 
-    void setUpLetter();
-
     void setUpExpert();
-    void showExpert(QString no);
+
+    void showExpert(int no);
+
+    void setUpInfo();
+
+    QStringList getToList();
+
+    QStringList getFromList();
+
+    QStringList getExperList();
+
+    QStringList getFormList();
+
+    void showToLetter(int tno);
+
+    void showFromLetter(int fno);
+
+    void setUpExpertForExpert();
+
+    void setUpForum();
+
+    void showForum(int fno);
+
+    void pests();
+
+    void statistics();
 
 private slots:
     void on_notice_clicked();
@@ -131,6 +154,28 @@ private slots:
 
     void on_sre1_clicked();
 
+    void on_headalter_clicked();
+
+    void on_noticereturn_clicked();
+
+    void on_exsub_clicked();
+
+    void on_exre2_clicked();
+
+    void on_knowsearch_clicked();
+
+    void on_noticeset_clicked();
+
+    void on_forumbt_clicked();
+
+    void on_fre_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_nwsub_clicked();
+
+    void on_nwre_clicked();
+
 private:
     Ui::First *ui;
 
@@ -140,9 +185,23 @@ private:
 
     bool success=false;
 
-    QString ntno;
+    QString imagePath;
 
-    QStringList noticeList;
+    QStringList list;
+
+    QString noticeNo[20];
+
+    QString fromNo[7];
+
+    QString toNo[7];
+
+    QString experno[7];
+
+    QString forumno[7];
+
+    QString hexinPath;
+
+    QString resPath="";
 };
 
 #endif // FIRST_H

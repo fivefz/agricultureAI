@@ -1,11 +1,17 @@
 #include "res.h"
 #include "ui_res.h"
 #include <QDebug>
+#include "network.h"
+#include "ok.h"
+#include "check.h"
+
 res::res(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::res)
 {
     ui->setupUi(this);
+    setWindowTitle("多人农业图像分析平台");
+    setWindowIcon(QIcon(QPixmap(":/image/First.jpg")));
     ui->background->setPixmap(QPixmap(":/image/First.jpg"));
     ui->name->setStyleSheet("color:rgb(255, 255, 255);font-size:20px;font-family:楷体;font: bold;");
     ui->pas->setStyleSheet("color:rgb(255, 255, 255);font-size:20px;font-family:楷体;font: bold;");
@@ -124,8 +130,69 @@ void res::on_submit_clicked()
     else ui->powerr->setText("");
 
     if(flag){
-        QString res=ui->namein->text()+ui->pasin->text()+ui->phonein->text()+ui->addrin->text()+ui->pro->currentText()+ui->city->currentText()+ui->powin->currentText();
-        qDebug()<<res;
+
+        Network n1;
+        QStringList list1;
+        list1<<""<<ui->addrin->text();
+        QString code=QString(n1.doPost("getcode",list1));
+        check *c=new check(code,ui->addrin->text());
+        c->setWindowModality(Qt::ApplicationModal);
+        connect(c, SIGNAL(sendData(QString)), this, SLOT(receiveData(QString)));
+        c->show();
+
+
+
+
+
+
+
+
+        QString pow;
+        switch (ui->powin->currentIndex()) {
+        case 1:
+            pow="farmer";
+            break;
+        case 2:
+            pow="officer";
+            break;
+        case 4:
+            pow="expert";
+            break;
+        case 5:
+            pow="admin";
+            break;
+        default:
+            break;
+        }
+
+        this->list<<ui->namein->text()<<ui->pasin->text()<<ui->addrin->text()<<ui->phonein->text()<<ui->pro->currentText()<<ui->city->currentText()<<pow;
+
+
+
+
+
+//        QString res=ui->namein->text()+ui->pasin->text()+ui->phonein->text()+ui->addrin->text()+ui->pro->currentText()+ui->city->currentText()+ui->powin->currentText();
+//        qDebug()<<res;
     }
 
 }
+
+void res::receiveData(QString data)
+{
+    if(data=="OK")
+    {
+        Network n;
+        QString result=QString(n.doPost("register",this->list));
+        ok o("注册成功，您的id是"+result);
+        qDebug()<<result;
+        o.exec();
+        list.clear();
+        this->close();
+    }
+
+
+
+
+}
+
+
