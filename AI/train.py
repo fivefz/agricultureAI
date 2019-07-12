@@ -45,14 +45,16 @@ def train(args, model, device, train_loader, optimizer, epoch):
         img=torch.argmax(imgd,0).byte().numpy()
         imgx=Image.fromarray(img).convert('L')
         imgxx=Image.fromarray(target.detach()[0,:,:].cpu().byte().numpy()*255).convert('L')
-        imgx.save(prefix+"data/tmp/predict{}.bmp".format(epoch))
-        imgxx.save(prefix+'data/tmp/real{}.bmp'.format(epoch))
+        imgx.save(prefix+"data/temp/predict{}.bmp".format(epoch))
+        imgxx.save(prefix+'data/temp/real{}.bmp'.format(epoch))
  
 def test(args, model, device, testdataset,issave=False):
+    #eval()时，pytorch会自动把BN和DropOut固定住，不会取平均，而是用训练好的值。
+    #不然的话，一旦test的batch_size过小，很容易就会被BN层导致生成图片颜色失真极大
     model.eval()
     test_loss = 0
     correct = 0
-    evalid=[i+7 for i in range(0,2100,15)]
+    evalid=[i+7 for i in range(0,900,15)]
     maxbatch=len(evalid)
     with torch.no_grad():
         for idx in evalid:

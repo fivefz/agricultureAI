@@ -20,7 +20,7 @@ class FarmDataset(Dataset):
         self.istrain=istrain
         self.trainxformat=prefix+'/data/initial/*.bmp'
         self.trainyformat=prefix+'/data/label/*.bmp'
-        self.testxformat='./data/test/*.png'
+        self.testxformat=prefix+'AI/test/*.png'
         #如果是训练模式，就需要用训练集图像
         #fns=glob.glob意味获取该路径下所有符合的图片,返回的也是相应路径的数组
         self.fns=glob.glob(self.trainxformat) if istrain else glob.glob(self.testxformat)
@@ -117,4 +117,6 @@ class FarmDataset(Dataset):
  
 if __name__=='__main__':
     d=FarmDataset(istrain=True)#这就是后续要进行训练的数据集了
+    print(d[0])
+    print(d[1])
     
