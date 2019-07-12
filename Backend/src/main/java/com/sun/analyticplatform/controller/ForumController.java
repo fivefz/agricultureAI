@@ -23,8 +23,8 @@ public class ForumController {
         return posterRepository.findAll();
     }
 
-    @GetMapping("/getposterInfo")
-    public Poster getPosterInfo(@RequestParam int id){
+    @GetMapping("/getposterInfo/{id}")
+    public Poster getPosterInfo(@PathVariable int id){
         return posterRepository.findById(id);
     }
 

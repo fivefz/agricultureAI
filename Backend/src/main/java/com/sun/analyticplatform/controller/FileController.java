@@ -14,7 +14,7 @@ public class FileController {
     @GetMapping("/{name}")
     public String fileDownload(@PathVariable String name, HttpServletRequest request, HttpServletResponse response){
         String fileName = name;// 文件名
-        System.out.println("name:"+name);
+        System.out.println("downloadname:"+name);
         if (fileName != null) {
             //设置文件路径
             File file = new File("H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\files\\"+fileName);
@@ -59,19 +59,22 @@ public class FileController {
 
 
 
-    @PostMapping("/upload")
+    @PostMapping("/upload/{id}")
     public String fileUpload(@RequestParam("file") MultipartFile file,
-                             @RequestParam("id") int id){
+                             @PathVariable("id") int id){
         try {
             if (file.isEmpty()) {
                 return "文件为空";
             }
             // 获取文件名
             String fileName = file.getOriginalFilename();
+
+            System.out.println("fileuploadOriginal:"+fileName);
+
             // 获取文件的后缀名
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             // 设置文件存储路径
-            String filePath = "H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\files"+"\\"+id;
+            String filePath = "H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\files\\";
             String path = filePath + fileName;
             File dest = new File(path);
             // 检测是否存在目录

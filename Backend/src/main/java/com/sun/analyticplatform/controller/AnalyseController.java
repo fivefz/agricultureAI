@@ -16,8 +16,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,29 +23,30 @@ import java.util.regex.Pattern;
 @RequestMapping("/analyse")
 public class AnalyseController {
 
-    String analyIP = "192.168.0.110";
+    String analyIP = "192.168.43.65";
 
     String farmerAnaly="http://"+analyIP+":8000/";
 
     String officerAnaly="http://"+analyIP+":9000/";
 
-    String serverip = "http://192.168.0.109:80";
+    String serverip = "http://192.168.43.252:80";
 
 
-    @GetMapping("/farmer")
-    public String farmerAnaly(@RequestParam int id,
-                              @RequestParam String filename) throws JSONException, UnsupportedEncodingException {
+    @PostMapping("/farmer/{id}/{filename}")
+    public String farmerAnaly(@PathVariable("id") String id,
+                              @PathVariable("filename") String filename) throws JSONException, UnsupportedEncodingException {
 
         //return string id
         //id
         // image_url   ip:80/file/name
+        System.out.println("Analyse filename:" +filename);
+
         String image_url = serverip+"/file/"+filename;
         RestTemplate restTemplate=new RestTemplate();
 
-        HttpHeaders headers = new HttpHeaders();
 
         MultiValueMap<String, String> request = new LinkedMultiValueMap<>();
-        request.add("id", String.valueOf(id));
+        request.add("id", id);
         request.add("image_url", image_url);
 
         String msg = restTemplate.postForObject(farmerAnaly,  request, String.class);
@@ -56,12 +55,15 @@ public class AnalyseController {
 
     }
 
-    @GetMapping("/officer")
-    public void officerAnaly(@RequestParam int id,
-                               @RequestParam String filename) throws JSONException {
+    @PostMapping("/officer/{id}/{filename}")
+    public void officerAnaly(@PathVariable("id") String id,
+                             @PathVariable("filename") String filename) throws JSONException {
         // image_url   ip:80/file/name
         //id
         // return_url ip:80/analyse/addresult/
+
+        System.out.println("Analyse filename:" +filename);
+
         String image_url = serverip+"/file/"+filename;
         String return_url = serverip+"/analyse/addresult/"+id;
         HttpHeaders headers = new HttpHeaders();
@@ -69,7 +71,7 @@ public class AnalyseController {
         RestTemplate restTemplate=new RestTemplate();
 
         MultiValueMap<String, String> request = new LinkedMultiValueMap<>();
-        request.add("id", String.valueOf(id));
+        request.add("id", id);
         request.add("image_url", image_url);
         request.add("return_url",return_url);
         HttpEntity<MultiValueMap<String, String>> requestEntity  = new HttpEntity<MultiValueMap<String, String>>(request, headers);
@@ -85,12 +87,13 @@ public class AnalyseController {
                 return "文件为空";
             }
             // 获取文件名
-            String fileName = file.getOriginalFilename();
+            //String fileName = file.getOriginalFilename();
             // 获取文件的后缀名
-            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            //String suffixName = fileName.substring(fileName.lastIndexOf("."));
             // 设置文件存储路径
-            String filePath = "H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\files"+"\\"+id;
-            String path = filePath + fileName;
+            String fileName = "H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\results\\"+id+".png";
+            //String path = filePath + fileName;
+            String path = fileName;
             File dest = new File(path);
             // 检测是否存在目录
             if (!dest.getParentFile().exists()) {
@@ -113,7 +116,7 @@ public class AnalyseController {
         String fileName = id+".png";// 文件名
         if (fileName != null) {
             //设置文件路径
-            File file = new File("H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\results" + fileName);
+            File file = new File("H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\results\\" + fileName);
             if (file.exists()) {
                 response.setContentType("application/force-download");// 设置强制下载不打开
                 response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);// 设置文件名
