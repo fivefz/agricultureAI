@@ -58,10 +58,17 @@ class MyHandler(tornado.web.RequestHandler):
         #fp=open(params,'rb')
         print('开始上传图片')
         file_payload = {'file': (params, open(params, 'rb'), "image/png")}
+        print(type(file_payload))
+        print(file_payload)
         m = MultipartEncoder(file_payload)
         print(type(m))
         print(m)
-        requests.post(server_url,data=m)
+        headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:50.0) Gecko/20100101 Firefox/50.0', 
+                'Referer': server_url
+                }
+        headers['Content-Type'] = m.content_type
+        requests.post(server_url,data = m,headers=headers)
         #data = []
         #data.append(fp.read())
         #request = urllib.request.Request(server_url, data)
