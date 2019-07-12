@@ -30,7 +30,7 @@ public class UserTest {
         //userRepository.save(new User("expert2","pass","22@126.com","6666655555","ShaanXi","Xi'an", User.Role.expert));
 //        userRepository.save(new User("officer1","pass","rr@126.com","12345678913", "ShaanXi","Xi'an", User.Role.officer));
 //        userRepository.save(new User("officer2","pass","tt@126.com","12345678914","ShaanXi","Xi'an", User.Role.officer));
-        userRepository.save(new User("admin","pass","oo@126.com","12345678915","ShaanXi","Xi'an", User.Role.admin));
+//        userRepository.save(new User("admin","pass","oo@126.com","12345678915","ShaanXi","Xi'an", User.Role.admin));
 
 //        Assert.assertEquals("bb", userRepository.findByUserName("bb2").getPassword());
 //        userRepository.delete(userRepository.findByUserName("aa1"));

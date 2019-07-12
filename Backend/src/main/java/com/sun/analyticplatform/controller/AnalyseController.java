@@ -116,7 +116,7 @@ public class AnalyseController {
         String fileName = id+".png";// 文件名
         if (fileName != null) {
             //设置文件路径
-            File file = new File("H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\results" + fileName);
+            File file = new File("H:\\advanced\\agricultureAI\\Backend\\src\\main\\resources\\results\\" + fileName);
             if (file.exists()) {
                 response.setContentType("application/force-download");// 设置强制下载不打开
                 response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);// 设置文件名

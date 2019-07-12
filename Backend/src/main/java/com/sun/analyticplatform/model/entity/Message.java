@@ -27,6 +27,14 @@ public class Message {
     public Message(){
 
     }
+
+    public Message(User from, User to, Date date, String content) {
+        this.from = from;
+        this.to = to;
+        this.date = date;
+        this.content = content;
+    }
+
     public Message(User from, User to, Date date, String content, boolean readed) {
         this.from = from;
         this.to = to;
